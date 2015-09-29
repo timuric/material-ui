@@ -6,6 +6,7 @@ const RadioButtonOff = require('./svg-icons/toggle/radio-button-unchecked');
 const RadioButtonOn = require('./svg-icons/toggle/radio-button-checked');
 const DefaultRawTheme = require('./styles/raw-themes/light-raw-theme');
 const ThemeManager = require('./styles/theme-manager');
+const ImmutabilityHelper = require('./utils/immutability-helper');
 
 const RadioButton = React.createClass({
 
@@ -43,6 +44,7 @@ const RadioButton = React.createClass({
     iconStyle: React.PropTypes.object,
     labelStyle: React.PropTypes.object,
     onCheck: React.PropTypes.func,
+    style: React.PropTypes.object,
   },
 
   getTheme() {
@@ -50,6 +52,7 @@ const RadioButton = React.createClass({
   },
 
   getStyles() {
+    let propStyles = this.props.styles;
     let styles = {
       icon: {
           height: this.getTheme().size,
@@ -89,7 +92,7 @@ const RadioButton = React.createClass({
       },
     };
 
-    return styles;
+    return ImmutabilityHelper.merge(styles, propStyles);
   },
 
   render() {

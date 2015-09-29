@@ -5,6 +5,7 @@ const Paper = require('./paper');
 const EnhancedSwitch = require('./enhanced-switch');
 const DefaultRawTheme = require('./styles/raw-themes/light-raw-theme');
 const ThemeManager = require('./styles/theme-manager');
+const ImmutabilityHelper = require('./utils/immutability-helper');
 
 const Toggle = React.createClass({
 
@@ -20,6 +21,7 @@ const Toggle = React.createClass({
     onToggle: React.PropTypes.func,
     toggled: React.PropTypes.bool,
     defaultToggled: React.PropTypes.bool,
+    style: React.PropTypes.object,
   },
 
   //for passing default theme context to children
@@ -58,6 +60,7 @@ const Toggle = React.createClass({
   getStyles() {
     let toggleSize = 20;
     let toggleTrackWidth = 36;
+    let propStyles = this.props.styles;
     let styles = {
       icon: {
         width: 36,
@@ -102,7 +105,7 @@ const Toggle = React.createClass({
       },
     };
 
-    return styles;
+    return ImmutabilityHelper.merge(styles, propStyles);
   },
 
   render() {

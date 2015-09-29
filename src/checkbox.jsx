@@ -6,6 +6,7 @@ const CheckboxOutline = require('./svg-icons/toggle/check-box-outline-blank');
 const CheckboxChecked = require('./svg-icons/toggle/check-box');
 const DefaultRawTheme = require('./styles/raw-themes/light-raw-theme');
 const ThemeManager = require('./styles/theme-manager');
+const ImmutabilityHelper = require('./utils/immutability-helper');
 
 
 const Checkbox = React.createClass({
@@ -35,6 +36,7 @@ const Checkbox = React.createClass({
     labelStyle: React.PropTypes.object,
     onCheck: React.PropTypes.func,
     unCheckedIcon: React.PropTypes.element,
+    style: React.PropTypes.object,
   },
 
   getInitialState() {
@@ -61,6 +63,7 @@ const Checkbox = React.createClass({
 
   getStyles() {
     let checkboxSize = 24;
+    let propStyles = this.props.styles;
     let styles = {
       icon: {
           height: checkboxSize,
@@ -102,7 +105,7 @@ const Checkbox = React.createClass({
       },
     };
 
-    return styles;
+    return ImmutabilityHelper.merge(styles, propStyles);
   },
 
   render() {
